@@ -54,8 +54,8 @@ class AvatarWidget extends StatelessWidget {
           height: radius * 2 + 9.0,
           width: radius * 2 + 9.0,
           decoration:
-              // TODO Remove generic
-              Feed.generic.stories.isEmpty ? null : _gradientBorderDecoration,
+              // TODO generic
+              isCurrentUserStory ? _gradientBorderDecoration : null,
           child: Stack(
             alignment: Alignment.center,
             children: <Widget>[
@@ -66,7 +66,7 @@ class AvatarWidget extends StatelessWidget {
                   child: CircleAvatar(
                       radius: radius,
                       child: CachedNetworkImage(
-                        imageUrl: Env.uri + user.picture,
+                        imageUrl: Env.staticUrl + user.picture,
                         placeholder: (context, placeholderURL) =>
                             const CircularProgressIndicator(),
                         errorWidget: (context, placeholderURL, error) =>
@@ -75,8 +75,8 @@ class AvatarWidget extends StatelessWidget {
                 ),
               ),
 
-              // TODO Remove generic
-              if (isCurrentUserStory && Feed.generic.stories.isEmpty)
+              // TODO generic
+              if (isCurrentUserStory)
                 // Bottom right circular add icon
                 Positioned(
                   right: 2.0,

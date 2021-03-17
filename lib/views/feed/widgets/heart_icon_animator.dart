@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
 class HeartIconAnimator extends StatefulWidget {
-  final bool isLiked;
-  final double size;
-  final VoidCallback onTap;
-  final Stream<void>? triggerAnimationStream;
-
   HeartIconAnimator({
     required this.isLiked,
     this.size = 24.0,
     required this.onTap,
     this.triggerAnimationStream,
   });
+
+  final bool isLiked;
+  final double size;
+  final VoidCallback onTap;
+  final Stream<void>? triggerAnimationStream;
 
   @override
   _HeartIconAnimatorState createState() => _HeartIconAnimatorState();
@@ -70,22 +70,23 @@ class _HeartIconAnimatorState extends State<HeartIconAnimator>
 }
 
 class _TapableHeart extends AnimatedWidget {
-  final bool isLiked;
-  final double size;
-  final VoidCallback onTap;
-
   _TapableHeart({
     Key? key,
     required this.isLiked,
     required this.size,
     required this.onTap,
-    required Animation<double> animation,
+    required this.animation,
   }) : super(key: key, listenable: animation);
+
+  final bool isLiked;
+  final double size;
+  final VoidCallback onTap;
+  final Animation<double> animation;
 
   @override
   Widget build(BuildContext context) {
     return ScaleTransition(
-      scale: listenable,
+      scale: animation,
       child: GestureDetector(
         child: isLiked
             ? Icon(Icons.favorite, size: size, color: Colors.red)

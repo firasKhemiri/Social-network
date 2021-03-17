@@ -2,8 +2,11 @@ import 'dart:async';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_login/blocs/authentication/authentication_bloc.dart';
 import 'package:flutter_login/models/feed/bucket.dart';
 import 'package:flutter_login/models/user/bucket.dart';
+import '../../../env.dart';
 import 'bucket.dart';
 // import 'heart_icon_animator.dart';
 // import 'heart_overlay_animator.dart';
@@ -48,7 +51,7 @@ class _PostWidgetState extends State<PostWidget> {
     setState(() => _isSaved = !_isSaved);
   }
 
-  void _showAddCommentModal() {
+  void _showAddCommentModal(User user) {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
@@ -57,7 +60,7 @@ class _PostWidgetState extends State<PostWidget> {
               EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
           child: AddCommentModal(
             // TODO change to actual user
-            user: User.generic,
+            user: user,
             onPost: (String text) {
               setState(() {
                 widget.post.comments!.add(Comment(
@@ -65,7 +68,7 @@ class _PostWidgetState extends State<PostWidget> {
                   dateCreated: DateTime.now(),
                   // TODO Change user to current user
                   reactions: [], id: 1,
-                  user: User.generic,
+                  user: user,
                 ));
               });
               Navigator.pop(context);
@@ -78,6 +81,9 @@ class _PostWidgetState extends State<PostWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var user = (BlocProvider.of<AuthenticationBloc>(context).state
+            as AuthenticationSuccess)
+        .user;
     return Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20), color: Colors.white),
@@ -113,7 +119,7 @@ class _PostWidgetState extends State<PostWidget> {
                                 if (widget.post.location != null)
                                   Text(
                                     widget.post.location!,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color: Colors.grey, fontSize: 11),
                                   ),
 
@@ -159,7 +165,7 @@ class _PostWidgetState extends State<PostWidget> {
                             child: ClipRRect(
                                 borderRadius: BorderRadius.circular(10.0),
                                 child: CachedNetworkImage(
-                                  imageUrl: image.path,
+                                  imageUrl: Env.staticUrl + image.path,
                                   placeholder: (context, placeholderURL) =>
                                       const CircularProgressIndicator(),
                                   errorWidget:
@@ -194,7 +200,7 @@ class _PostWidgetState extends State<PostWidget> {
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: HeartIconAnimator(
                       // TODO Fix user
-                      isLiked: widget.post.isReactedBy(User.generic),
+                      isLiked: widget.post.isReactedBy(user),
                       size: 28.0,
                       onTap: _toggleIsLiked,
                       triggerAnimationStream: _doubleTapImageEvents.stream,
@@ -217,7 +223,7 @@ class _PostWidgetState extends State<PostWidget> {
                       padding: const EdgeInsets.only(right: 10),
                       iconSize: 28.0,
                       icon: const Icon(Icons.chat_bubble_outline),
-                      onPressed: _showAddCommentModal,
+                      onPressed: () => _showAddCommentModal(user),
                     ),
                   ),
                   Container(

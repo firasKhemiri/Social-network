@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
 class HeartOverlayAnimator extends StatefulWidget {
-  final Stream<void> triggerAnimationStream;
-
   HeartOverlayAnimator({required this.triggerAnimationStream});
+  final Stream<void> triggerAnimationStream;
 
   @override
   _HeartOverlayAnimatorState createState() => _HeartOverlayAnimatorState();

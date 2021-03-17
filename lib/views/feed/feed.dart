@@ -5,7 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_login/blocs/feed/bucket.dart';
 import 'package:flutter_login/repositories/auth/authentication_repository.dart';
 import 'package:flutter_login/repositories/post/feed_repository.dart';
-import 'package:flutter_login/views/feed/widgets/feed_main.dart';
+import 'package:flutter_login/views/feed/feed_main.dart';
+import 'package:flutter_login/views/feed/feed_screen.dart';
 
 import '../../repositories/post/feed_repository.dart';
 
@@ -17,9 +18,7 @@ class Feed extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Feed')),
-      body: Padding(
-        padding: const EdgeInsets.all(12),
+      body: SizedBox(
         child: RepositoryProvider.value(
             value: FeedRepository,
             child: BlocProvider(
@@ -43,15 +42,16 @@ class FeedView extends StatefulWidget {
 class _FeedViewState extends State<FeedView> {
   @override
   Widget build(BuildContext context) {
+    var deviceSize = MediaQuery.of(context).size;
     return SizedBox(
-      height: 400,
-      width: 400,
+      height: deviceSize.height,
+      width: deviceSize.width,
       child: Center(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             BlocBuilder<FeedBloc, FeedState>(builder: (context, state) {
-              log('state status ${state}');
+              log('state status $state');
               if (state is FeedLoading) {
                 return const CircularProgressIndicator();
               }
