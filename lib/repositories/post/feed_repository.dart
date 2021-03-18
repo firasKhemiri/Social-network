@@ -71,7 +71,9 @@ class FeedRepository {
 
   List<Story> _getStoriesfromData(List<dynamic> data) {
     var stories = <Story>[];
-    // data.forEach((story) {
+    data.forEach((story) {
+      stories.add(Story.fromJson(story as Map<String, dynamic>));
+    });
     //   stories.add(Story.fromJson(story as Map<String, dynamic>));
     // });
     // log('story: ${stories[0].id} ${stories[0].creator.firstName}');

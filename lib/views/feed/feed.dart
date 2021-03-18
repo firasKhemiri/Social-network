@@ -6,15 +6,10 @@ import 'package:flutter_login/blocs/feed/bucket.dart';
 import 'package:flutter_login/repositories/auth/authentication_repository.dart';
 import 'package:flutter_login/repositories/post/feed_repository.dart';
 import 'package:flutter_login/views/feed/feed_main.dart';
-import 'package:flutter_login/views/feed/feed_screen.dart';
 
 import '../../repositories/post/feed_repository.dart';
 
 class Feed extends StatelessWidget {
-  static Route route() {
-    return MaterialPageRoute<void>(builder: (_) => Feed());
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

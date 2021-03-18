@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_login/blocs/feed/bucket.dart';
@@ -34,34 +36,18 @@ class _HomeFeedPageState extends State<FeedMain> {
               posts = feed.posts;
               stories = feed.stories;
               return _buildBody();
-              //   appBar: _buildAppBar(),
-              //   body: _buildBody(),
-              // );
             },
           ),
-          // RaisedButton(
-          //   child: const Text('Logout'),
-          //   onPressed: () {
-          //     context
-          //         .read<AuthenticationBloc>()
-          //         .add(AuthenticationLogoutRequested());
-          //   },
-          // ),
         ],
       ),
     );
   }
 
-  AppBar _buildAppBar() {
-    return AppBar(
-      title: const Text('Feed'),
-    );
-  }
-
   Widget _buildBody() {
     var deviceSize = MediaQuery.of(context).size;
+    log('stories ${stories.length}');
     return Container(
-        height: deviceSize.height,
+        height: deviceSize.height - 56,
         width: deviceSize.width,
         color: Colors.grey[300],
         child: ListView.builder(

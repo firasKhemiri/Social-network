@@ -4,6 +4,7 @@ import 'package:flutter_login/views/feed/feed.dart';
 import 'package:flutter_login/repositories/auth/authentication_repository.dart';
 import 'package:flutter_login/repositories/post/feed_repository.dart';
 import 'package:flutter_login/repositories/user/user_repository.dart';
+import 'package:flutter_login/views/home/home.dart';
 import 'package:flutter_login/views/login/bucket.dart';
 import 'package:flutter_login/views/splash/splash.dart';
 
@@ -62,7 +63,7 @@ class _AppViewState extends State<AppView> {
           listener: (context, state) {
             if (state is AuthenticationSuccess) {
               _navigatorKey.currentState!
-                  .pushAndRemoveUntil<void>(Feed.route(), (route) => false);
+                  .pushAndRemoveUntil<void>(Home.route(), (route) => false);
             }
             if (state is AuthenticationFailure) {
               _navigator!.pushAndRemoveUntil<void>(

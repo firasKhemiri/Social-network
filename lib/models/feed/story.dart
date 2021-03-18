@@ -13,8 +13,8 @@ class Story {
     required this.image,
     required this.creator,
     required this.dateCreated,
-    required this.reactions,
-    required this.comments,
+    this.reactions,
+    this.comments,
   });
 
   factory Story.fromJson(Map<String, dynamic> json) => _$StoryFromJson(json);
@@ -33,8 +33,8 @@ class Story {
   final User creator;
   final DateTime dateCreated;
 
-  List<Reaction> reactions;
-  List<Comment> comments;
+  List<Reaction>? reactions;
+  List<Comment>? comments;
 
   String timeAgo() {
     final now = DateTime.now();
@@ -42,6 +42,6 @@ class Story {
   }
 
   void addReaction(User user, {int reactionType = 0}) {
-    reactions.add(Reaction(user: user, reactionType: reactionType));
+    reactions!.add(Reaction(user: user, reactionType: reactionType));
   }
 }

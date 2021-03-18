@@ -67,6 +67,13 @@ class AvatarWidget extends StatelessWidget {
                       radius: radius,
                       child: CachedNetworkImage(
                         imageUrl: Env.staticUrl + user.picture,
+                        imageBuilder: (context, imageProvider) => Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            image: DecorationImage(
+                                image: imageProvider, fit: BoxFit.fill),
+                          ),
+                        ),
                         placeholder: (context, placeholderURL) =>
                             const CircularProgressIndicator(),
                         errorWidget: (context, placeholderURL, error) =>

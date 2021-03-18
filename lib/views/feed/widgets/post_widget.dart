@@ -115,18 +115,17 @@ class _PostWidgetState extends State<PostWidget> {
                                 Text(widget.post.creator.getFullName(),
                                     style: bold),
                                 Container(height: 2),
-
                                 if (widget.post.location != null)
                                   Text(
                                     widget.post.location!,
                                     style: const TextStyle(
                                         color: Colors.grey, fontSize: 11),
                                   ),
-
-                                // Text(
-                                //   widget.post.timeAgo(),
-                                //   style: TextStyle(color: Colors.grey, fontSize: 11.0),
-                                // ),
+                                Text(
+                                  widget.post.timeAgo(),
+                                  style: TextStyle(
+                                      color: Colors.grey, fontSize: 11.0),
+                                ),
                               ],
                             ),
                           ),
@@ -142,16 +141,16 @@ class _PostWidgetState extends State<PostWidget> {
                   ),
                 ])),
 
-            if (widget.post.comments != null &&
-                widget.post.comments!.isNotEmpty)
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                child: Column(
-                  children: widget.post.comments!
-                      .map((Comment c) => PostDescWidget(c))
-                      .toList(),
-                ),
-              ),
+            // if (widget.post.comments != null &&
+            //     widget.post.comments!.isNotEmpty)
+            //   Padding(
+            //     padding: const EdgeInsets.symmetric(horizontal: 12),
+            //     child: Column(
+            //       children: widget.post.comments!
+            //           .map((Comment c) => PostDescWidget(c))
+            //           .toList(),
+            //     ),
+            //   ),
 
             // Photo Carosuel
             GestureDetector(
@@ -162,18 +161,21 @@ class _PostWidgetState extends State<PostWidget> {
                       items: widget.post.images!.map((image) {
                         return Container(
                             margin: const EdgeInsets.symmetric(horizontal: 5),
-                            child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10.0),
-                                child: CachedNetworkImage(
-                                  imageUrl: Env.staticUrl + image.path,
-                                  placeholder: (context, placeholderURL) =>
-                                      const CircularProgressIndicator(),
-                                  errorWidget:
-                                      (context, placeholderURL, error) =>
-                                          const Icon(Icons.error),
-                                  fit: BoxFit.fitWidth,
-                                  width: MediaQuery.of(context).size.width,
-                                )));
+                            child: CachedNetworkImage(
+                              imageUrl: Env.staticUrl + image.path,
+                              imageBuilder: (context, imageProvider) =>
+                                  Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(16),
+                                  image: DecorationImage(
+                                      image: imageProvider, fit: BoxFit.fill),
+                                ),
+                              ),
+                              placeholder: (context, url) => const Center(
+                                  child: CircularProgressIndicator()),
+                              errorWidget: (context, placeholderURL, error) =>
+                                  const Icon(Icons.error),
+                            ));
                       }).toList(),
                       options: CarouselOptions(
                         viewportFraction: 1.0,
@@ -209,14 +211,13 @@ class _PostWidgetState extends State<PostWidget> {
                   Container(
                     width: 35,
                     child: Text('${widget.post.reactions.length}', style: bold),
-
-                    // Text(widget.post.likes[0].user.name, style: bold),
-                    // if (widget.post.likes.length > 1) ...[
-                    //   Text(' and'),
-                    //   Text(' ${widget.post.likes.length - 1} others',
-                    //       style: bold),
-                    // ]
                   ),
+                  if (widget.post.reactions.length > 1) ...[
+                    Text(widget.post.reactions[0].user.firstName, style: bold),
+                    Text(' and'),
+                    Text(' ${widget.post.reactions.length - 1} others',
+                        style: bold),
+                  ],
                   Container(
                     width: 30,
                     child: IconButton(
@@ -266,11 +267,11 @@ class _PostWidgetState extends State<PostWidget> {
                       ),
                       padding: const EdgeInsets.only(
                           top: 5, bottom: 5.0, left: 16, right: 0),
-                      // child: Column(
-                      //   children: widget.post.comments
-                      //       .map((Comment c) => CommentWidget(c))
-                      //       .toList(),
-                      // ),
+                      child: Column(
+                        children: widget.post.comments!
+                            .map((Comment c) => CommentWidget(c))
+                            .toList(),
+                      ),
                     ),
                 ],
               ),
