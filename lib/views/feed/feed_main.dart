@@ -70,7 +70,7 @@ class StoriesBarWidget extends StatelessWidget {
   void _onUserStoryTap(BuildContext context, int i) {
     final message = i == 0
         ? 'Add to Your Story'
-        : "View ${stories[i].creator.firstName}'s Story";
+        : "View ${stories[i].user.firstName}'s Story";
     showSnackbar(context, message);
   }
 
@@ -82,7 +82,7 @@ class StoriesBarWidget extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemBuilder: (ctx, i) {
           return AvatarWidget(
-            user: stories[i].creator,
+            user: stories[i].user,
             onTap: () => _onUserStoryTap(context, i),
             isLarge: true,
             isShowingUsernameLabel: true,

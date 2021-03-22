@@ -1,7 +1,10 @@
 // @dart=2.9
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_login/app.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_login/common/fb_log.dart';
+import 'package:flutter_login/common/fb_login.dart';
 import 'package:flutter_login/repositories/auth/authentication_repository.dart';
 import 'package:flutter_login/repositories/post/feed_repository.dart';
 import 'package:flutter_login/repositories/user/user_repository.dart';
@@ -10,6 +13,11 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 
 void main() async {
   // await initHiveForFlutter();
+  // runApp(MaterialApp(
+  //   title: 'Flutter Authentication App',
+  //   home: MyApp(),
+  // ));
+
   Bloc.observer = SimpleBlocObserver();
   runApp(App(
     authenticationRepository: AuthenticationRepository(),

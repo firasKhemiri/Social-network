@@ -5,13 +5,13 @@ class QueryMutation {
       stories{
           id,
           image{id,path},
-          creator{id, firstName, lastName, picture},
+          user{id, firstName, lastName, picture},
           dateCreated,
       },
       posts{
         id,
         description,
-        creator{id, firstName, lastName, picture},
+        user{id, firstName, lastName, picture},
         dateCreated,
         images{
             id,

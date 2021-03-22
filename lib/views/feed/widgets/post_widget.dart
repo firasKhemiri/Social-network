@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_login/blocs/authentication/authentication_bloc.dart';
+import 'package:flutter_login/common/utils/image.dart';
 import 'package:flutter_login/models/feed/bucket.dart';
 import 'package:flutter_login/models/user/bucket.dart';
 import '../../../env.dart';
@@ -84,6 +85,17 @@ class _PostWidgetState extends State<PostWidget> {
     var user = (BlocProvider.of<AuthenticationBloc>(context).state
             as AuthenticationSuccess)
         .user;
+
+    // var height = 1080.0;
+    // var width = 1920.0;
+
+    // ImageUtils.calculateImageDimension(
+    //         Env.staticUrl + widget.post.images![0].path)
+    //     .then((value) {
+    //   height = value.height;
+    //   width = value.width;
+    // });
+
     return Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20), color: Colors.white),
@@ -98,7 +110,7 @@ class _PostWidgetState extends State<PostWidget> {
                     width: MediaQuery.of(context).size.width,
                     top: -25.0,
                     right: 133.0,
-                    child: AvatarWidget(user: widget.post.creator),
+                    child: AvatarWidget(user: widget.post.user),
                   ),
                   Positioned(
                     width: MediaQuery.of(context).size.width,
@@ -112,7 +124,7 @@ class _PostWidgetState extends State<PostWidget> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Text(widget.post.creator.getFullName(),
+                                Text(widget.post.user.getFullName(),
                                     style: bold),
                                 Container(height: 2),
                                 if (widget.post.location != null)
@@ -178,8 +190,15 @@ class _PostWidgetState extends State<PostWidget> {
                             ));
                       }).toList(),
                       options: CarouselOptions(
-                        viewportFraction: 1.0,
+                        // TODO get aspect ratio from backend
+                        // aspectRatio: height / width,
+                        viewportFraction: 1,
                         enableInfiniteScroll: false,
+                        autoPlay: true,
+                        autoPlayInterval: const Duration(seconds: 3),
+                        autoPlayAnimationDuration:
+                            const Duration(milliseconds: 800),
+                        autoPlayCurve: Curves.fastOutSlowIn,
                         onPageChanged: _updateImageIndex,
                       )),
                   HeartOverlayAnimator(

@@ -10,7 +10,7 @@ Story _$StoryFromJson(Map json) {
   return Story(
     id: json['id'] as int,
     image: PubImage.fromJson(Map<String, dynamic>.from(json['image'] as Map)),
-    creator: User.fromJson(Map<String, dynamic>.from(json['creator'] as Map)),
+    user: User.fromJson(Map<String, dynamic>.from(json['user'] as Map)),
     dateCreated: DateTime.parse(json['dateCreated'] as String),
     reactions: (json['reactions'] as List<dynamic>?)
         ?.map((e) => Reaction.fromJson(Map<String, dynamic>.from(e as Map)))
@@ -24,7 +24,7 @@ Story _$StoryFromJson(Map json) {
 Map<String, dynamic> _$StoryToJson(Story instance) => <String, dynamic>{
       'id': instance.id,
       'image': instance.image.toJson(),
-      'creator': instance.creator.toJson(),
+      'user': instance.user.toJson(),
       'dateCreated': instance.dateCreated.toIso8601String(),
       'reactions': instance.reactions?.map((e) => e.toJson()).toList(),
       'comments': instance.comments?.map((e) => e.toJson()).toList(),

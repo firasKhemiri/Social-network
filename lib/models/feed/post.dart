@@ -14,7 +14,7 @@ class Post {
     required this.id,
     required this.description,
     // this.images,
-    required this.creator,
+    required this.user,
     required this.dateCreated,
     // required this.dateUpdated,
     required this.reactions,
@@ -29,7 +29,7 @@ class Post {
   static var generic = Post(
       id: 1,
       description: 'generic',
-      creator: User.generic,
+      user: User.generic,
       dateCreated: DateTime.now(),
       // dateUpdated: DateTime.now(),
       reactions: [],
@@ -38,7 +38,7 @@ class Post {
   final int id;
   String description;
   List<PubImage>? images;
-  final User creator;
+  final User user;
   final DateTime dateCreated;
   // DateTime dateUpdated;
 

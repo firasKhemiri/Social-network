@@ -11,7 +11,7 @@ class Story {
   Story({
     required this.id,
     required this.image,
-    required this.creator,
+    required this.user,
     required this.dateCreated,
     this.reactions,
     this.comments,
@@ -23,14 +23,14 @@ class Story {
   static final generic = Story(
       id: 1,
       image: PubImage.generic,
-      creator: User.generic,
+      user: User.generic,
       dateCreated: DateTime.now(),
       reactions: [],
       comments: []);
 
   final int id;
   final PubImage image;
-  final User creator;
+  final User user;
   final DateTime dateCreated;
 
   List<Reaction>? reactions;

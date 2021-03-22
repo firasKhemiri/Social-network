@@ -10,7 +10,7 @@ Post _$PostFromJson(Map json) {
   return Post(
     id: json['id'] as int,
     description: json['description'] as String,
-    creator: User.fromJson(Map<String, dynamic>.from(json['creator'] as Map)),
+    user: User.fromJson(Map<String, dynamic>.from(json['user'] as Map)),
     dateCreated: DateTime.parse(json['dateCreated'] as String),
     reactions: (json['reactions'] as List<dynamic>)
         .map((e) => Reaction.fromJson(Map<String, dynamic>.from(e as Map)))
@@ -30,7 +30,7 @@ Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
       'id': instance.id,
       'description': instance.description,
       'images': instance.images?.map((e) => e.toJson()).toList(),
-      'creator': instance.creator.toJson(),
+      'user': instance.user.toJson(),
       'dateCreated': instance.dateCreated.toIso8601String(),
       'reactions': instance.reactions.map((e) => e.toJson()).toList(),
       'comments': instance.comments?.map((e) => e.toJson()).toList(),

@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_login/views/authentication/Welcome/welcome_screen.dart';
+import 'package:flutter_login/views/authentication/login_page.dart';
 import 'package:flutter_login/views/feed/feed.dart';
 import 'package:flutter_login/repositories/auth/authentication_repository.dart';
 import 'package:flutter_login/repositories/post/feed_repository.dart';
 import 'package:flutter_login/repositories/user/user_repository.dart';
 import 'package:flutter_login/views/home/home.dart';
-import 'package:flutter_login/views/login/bucket.dart';
 import 'package:flutter_login/views/splash/splash.dart';
 
 import 'blocs/authentication/bucket.dart';
+import 'common/routes/fade_route.dart';
 
 class App extends StatelessWidget {
   const App({
@@ -16,10 +18,7 @@ class App extends StatelessWidget {
     required this.authenticationRepository,
     required this.userRepository,
     required this.feedRepository,
-  })   : assert(authenticationRepository != null),
-        assert(userRepository != null),
-        assert(feedRepository != null),
-        super(key: key);
+  }) : super(key: key);
 
   final AuthenticationRepository authenticationRepository;
   final UserRepository userRepository;
@@ -51,7 +50,6 @@ class AppView extends StatefulWidget {
 
 class _AppViewState extends State<AppView> {
   final _navigatorKey = GlobalKey<NavigatorState>();
-
   NavigatorState? get _navigator => _navigatorKey.currentState;
 
   @override
@@ -67,7 +65,7 @@ class _AppViewState extends State<AppView> {
             }
             if (state is AuthenticationFailure) {
               _navigator!.pushAndRemoveUntil<void>(
-                LoginPage.route(),
+                FadeRoute(page: WelcomeScreen()),
                 (route) => false,
               );
             }

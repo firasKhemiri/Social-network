@@ -61,7 +61,7 @@ class FeedRepository {
         // log('post data $decoded');
         posts.add(Post.fromJson(post as Map<String, dynamic>));
       });
-      log('post: ${posts[0].id} ${posts[0].creator.firstName}');
+      log('post: ${posts[0].id} ${posts[0].user.firstName}');
       return posts;
     } catch (e) {
       log(e.toString());
@@ -76,7 +76,7 @@ class FeedRepository {
     });
     //   stories.add(Story.fromJson(story as Map<String, dynamic>));
     // });
-    // log('story: ${stories[0].id} ${stories[0].creator.firstName}');
+    // log('story: ${stories[0].id} ${stories[0].user.firstName}');
     return stories;
   }
 
