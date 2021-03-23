@@ -11,33 +11,34 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_bloc: ^6.1.0
+  flutter_bloc: ^7.0.0
   formz: ^0.3.1
   equatable: ^1.2.5
 
   graphql_flutter: ^3.0.0
-  flutter_secure_storage: ^3.3.5
-
   build_runner: ^1.10.9
   json_serializable: ^4.0.0
   json_annotation: ^4.0.0
+
+  flutter_facebook_auth: ^3.1.1
+  http: any
+  
+  flutter_secure_storage: ^3.3.5
+  sembast: ^3.0.0+4
+  path_provider: ^1.1.0
+  get_it: ^4.0.2
 
   timeago: ^2.0.26
   curved_navigation_bar: ^0.3.3
   carousel_slider: ^3.0.0
   outline_material_icons: ^0.1.1
   cached_network_image: ^2.3.3
-
-  flutter_facebook_auth: ^3.1.1
-  flutter_auth_buttons: ^0.10.0
-  http: any
-  
   flutter_svg: ^0.19.1
   
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  bloc_test: ^7.0.0
+  bloc_test: ^8.0.0
   mockito: ^4.1.1
 
 flutter:

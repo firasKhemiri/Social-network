@@ -2,15 +2,15 @@ import 'package:bloc/bloc.dart';
 
 class SimpleBlocObserver extends BlocObserver {
   @override
-  void onEvent(Bloc bloc, Object event) {
+  void onEvent(Bloc bloc, Object? event) {
     print('${bloc.runtimeType} $event');
     super.onEvent(bloc, event);
   }
 
   @override
-  void onError(Cubit cubit, Object error, StackTrace stackTrace) {
-    print('${cubit.runtimeType} $error');
-    super.onError(cubit, error, stackTrace);
+  void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
+    print(error);
+    super.onError(bloc, error, stackTrace);
   }
 
   @override

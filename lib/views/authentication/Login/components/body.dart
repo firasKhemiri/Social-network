@@ -60,6 +60,20 @@ class Body extends StatelessWidget {
                     );
                   },
                 ),
+                OrDivider(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    SocalIcon(
+                      iconSrc: 'assets/icons/facebook.svg',
+                      press: () {},
+                    ),
+                    SocalIcon(
+                      iconSrc: 'assets/icons/google-plus.svg',
+                      press: () {},
+                    ),
+                  ],
+                )
               ],
             ),
           ),
@@ -78,11 +92,6 @@ class _UsernameInput extends StatelessWidget {
               context.read<LoginBloc>().add(LoginUsernameChanged(username)),
           key: const Key('loginForm_usernameInput_textField'),
           hintText: 'Your username or email',
-
-          // decoration: InputDecoration(
-          //   labelText: 'username',
-          //   errorText: state.username.invalid ? 'invalid username' : null,
-          // ),
         );
       },
     );
@@ -99,11 +108,6 @@ class _PasswordInput extends StatelessWidget {
           onChanged: (password) =>
               context.read<LoginBloc>().add(LoginPasswordChanged(password)),
           key: const Key('loginForm_passwordInput_textField'),
-
-          // decoration: InputDecoration(
-          //   labelText: 'password',
-          //   errorText: state.password.invalid ? 'invalid password' : null,
-          // ),
         );
       },
     );
@@ -123,7 +127,7 @@ class _LoginButton extends StatelessWidget {
                 text: 'LOGIN',
                 press: () => state.status.isValidated
                     ? context.read<LoginBloc>().add(const LoginSubmitted())
-                    : log('yo wazzup'));
+                    : log('Status is not valid'));
       },
     );
   }

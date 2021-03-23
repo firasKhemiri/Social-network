@@ -135,7 +135,7 @@ class _PostWidgetState extends State<PostWidget> {
                                   ),
                                 Text(
                                   widget.post.timeAgo(),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.grey, fontSize: 11.0),
                                 ),
                               ],

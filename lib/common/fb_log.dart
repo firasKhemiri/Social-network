@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 String prettyPrint(Map json) {
-  JsonEncoder encoder = new JsonEncoder.withIndent('  ');
-  String pretty = encoder.convert(json);
+  var encoder = new JsonEncoder.withIndent('  ');
+  var pretty = encoder.convert(json);
   return pretty;
 }
 
@@ -31,7 +31,7 @@ class _MyAppState extends State<MyApp> {
       _checking = false;
     });
     if (accessToken != null) {
-      print("is Logged:::: ${prettyPrint(accessToken.toJson())}");
+      print('is Logged:::: ${prettyPrint(accessToken.toJson())}');
       // now you can call to  FacebookAuth.instance.getUserData();
       final userData = await FacebookAuth.instance.getUserData();
       // final userData = await FacebookAuth.instance.getUserData(fields: "email,birthday,friends,gender,link");
@@ -77,10 +77,11 @@ class _MyAppState extends State<MyApp> {
           print("You have a previous login operation in progress");
           break;
         case FacebookAuthErrorCode.CANCELLED:
-          print("login cancelled");
+          print("""
+login cancelled""");
           break;
         case FacebookAuthErrorCode.FAILED:
-          print("login failed");
+          print('login failed');
           break;
       }
     } catch (e, s) {

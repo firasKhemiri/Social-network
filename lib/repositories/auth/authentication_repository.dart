@@ -1,12 +1,10 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter_login/common/graphql/graphql_config.dart';
 import 'package:flutter_login/common/graphql/queries/bucket.dart';
 import 'package:flutter_login/models/user/user.dart';
 import 'package:flutter_login/repositories/user/user_repository.dart';
-import 'package:meta/meta.dart';
 
 enum AuthenticationStatus { unknown, authenticated, unauthenticated }
 
@@ -16,7 +14,6 @@ class AuthenticationRepository {
   final _userRepository = UserRepository();
 
   Stream<AuthenticationStatus> get status async* {
-    await Future<void>.delayed(const Duration(seconds: 1));
     yield AuthenticationStatus.unknown;
     yield* _controller.stream;
   }
@@ -28,7 +25,7 @@ class AuthenticationRepository {
     try {
       final client = GraphQLService(null);
       final result = await client.performQuery(
-          _queryMutation.getTokenByUsername("firas", "delln5110"));
+          _queryMutation.getTokenByUsername('firas', 'delln5110'));
 
       // JsonCodec codec = new JsonCodec();
       // var decoded = codec.decode(
@@ -37,7 +34,7 @@ class AuthenticationRepository {
       var data =
           result.data['tokenAuth']['payload']['User'] as Map<String, dynamic>;
 
-      _getUserfromData(data);
+      var user = _getUserfromData(data);
 
       _controller.add(AuthenticationStatus.authenticated);
 
@@ -50,7 +47,7 @@ class AuthenticationRepository {
         'token': token,
         'refreshToken': refreshToken,
       };
-      await _userRepository.persistUserCredentials(credentials);
+      await _userRepository.persistUser(credentials, user);
     } catch (e) {
       log(e.toString());
       throw Exception('Wrong username or password');
@@ -66,7 +63,7 @@ class AuthenticationRepository {
       var data = result.data['refreshToken']['payload']['User']
           as Map<String, dynamic>;
 
-      _getUserfromData(data);
+      var user = _getUserfromData(data);
 
       final token = result.data['refreshToken']['token'].toString();
       final refreshToken =
@@ -76,7 +73,7 @@ class AuthenticationRepository {
         'refreshToken': refreshToken,
       };
 
-      await _userRepository.persistUserCredentials(credentials);
+      await _userRepository.persistUser(credentials, user);
       _controller.add(AuthenticationStatus.authenticated);
     } catch (e) {
       _controller.add(AuthenticationStatus.unauthenticated);

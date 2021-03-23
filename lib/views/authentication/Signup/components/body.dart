@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login/views/authentication/Login/login_screen.dart';
 import 'package:flutter_login/views/authentication/Signup/components/background.dart';
-import 'package:flutter_login/views/authentication/Signup/components/or_divider.dart';
-import 'package:flutter_login/views/authentication/Signup/components/social_icon.dart';
+import 'package:flutter_login/views/authentication/components/or_divider.dart';
+import 'package:flutter_login/views/authentication/components/social_icon.dart';
 import 'package:flutter_login/views/authentication/components/already_have_an_account_acheck.dart';
 import 'package:flutter_login/views/authentication/components/rounded_button.dart';
 import 'package:flutter_login/views/authentication/components/rounded_input_field.dart';
@@ -59,10 +59,6 @@ class Body extends StatelessWidget {
               children: <Widget>[
                 SocalIcon(
                   iconSrc: 'assets/icons/facebook.svg',
-                  press: () {},
-                ),
-                SocalIcon(
-                  iconSrc: 'assets/icons/twitter.svg',
                   press: () {},
                 ),
                 SocalIcon(

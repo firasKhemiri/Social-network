@@ -1,19 +1,14 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:flutter_login/common/storage/secure_storage.dart';
+import 'package:flutter_login/main.dart';
+import 'package:flutter_login/repositories/user/sembast_user_repository.dart';
 
 import '../../models/user/bucket.dart';
 
 class UserRepository {
   final SecureStorage _secureStorage = SecureStorage();
-
-  // Future<User> getUser() async {
-  //   if (_user != null) return _user;
-  //   return Future.delayed(
-  //     const Duration(milliseconds: 300),
-  //     () => _user = const User(id: 1, name: '', imageUrl: ''),
-  //   );
-  // }
-
+  final SembastUserRepository _userRepositoryDB = SembastUserRepository();
   Future<void> deleteToken() async {
     return await _secureStorage.deleteSecureData('token');
   }
@@ -22,9 +17,17 @@ class UserRepository {
     return await _secureStorage.deleteSecureData('refreshToken');
   }
 
-  Future<void> persistUserCredentials(Map<String, String> credentials) async {
+  Future<void> persistUser(Map<String, String> credentials, User user) async {
     /// write to keystore/keychain
-    return await _secureStorage.writeSecureDataMap(credentials);
+    await _secureStorage.writeSecureDataMap(credentials);
+    await _userRepositoryDB.addUser(user);
+
+    // var dbUser = await _userRepositoryDB.getUser(user);
+
+    // var ser = await _userRepositoryDB.getAllUsers();
+    // ser.forEach((element) {
+    //   log('db user ${element.phone} name ${element.firstName}');
+    // });
   }
 
   Future<String> getToken() async {
@@ -40,4 +43,6 @@ class UserRepository {
         (credentials) => credentials['token'] != null ? User.generic : null);
     return _user;
   }
+
+  void _checkForConnectedUserFB() {}
 }

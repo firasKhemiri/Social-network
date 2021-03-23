@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_login/common/routes/size.dart';
 import 'package:flutter_login/views/authentication/Welcome/welcome_screen.dart';
-import 'package:flutter_login/views/authentication/login_page.dart';
-import 'package:flutter_login/views/feed/feed.dart';
 import 'package:flutter_login/repositories/auth/authentication_repository.dart';
 import 'package:flutter_login/repositories/post/feed_repository.dart';
 import 'package:flutter_login/repositories/user/user_repository.dart';
@@ -10,7 +9,6 @@ import 'package:flutter_login/views/home/home.dart';
 import 'package:flutter_login/views/splash/splash.dart';
 
 import 'blocs/authentication/bucket.dart';
-import 'common/routes/fade_route.dart';
 
 class App extends StatelessWidget {
   const App({
@@ -28,12 +26,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return RepositoryProvider.value(
         value: authenticationRepository,
-        child:
-            // BlocProvider(
-            //     create: (_) => FeedBloc(
-            //         authenticationRepository: authenticationRepository,
-            //         feedRepository: feedRepository)),
-            BlocProvider(
+        child: BlocProvider(
           create: (_) => AuthenticationBloc(
             authenticationRepository: authenticationRepository,
             userRepository: userRepository,
@@ -65,7 +58,7 @@ class _AppViewState extends State<AppView> {
             }
             if (state is AuthenticationFailure) {
               _navigator!.pushAndRemoveUntil<void>(
-                FadeRoute(page: WelcomeScreen()),
+                SizeRoute(page: WelcomeScreen()),
                 (route) => false,
               );
             }
