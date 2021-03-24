@@ -3,7 +3,7 @@ import 'package:flutter_login/repositories/user/user_repository.dart';
 class LoginQueries {
   final UserRepository _userRepository = UserRepository();
   Future<String> getTokenFromRefreshToken() async {
-    return """
+    return '''
     mutation {
       refreshToken(refreshToken: "${await _userRepository.getRefreshToken()}")
       {
@@ -13,11 +13,11 @@ class LoginQueries {
         refreshExpiresIn
       }
     }
-    """;
+    ''';
   }
 
   String getTokenByUsername(String username, String pass) {
-    return """
+    return '''
     mutation {
       tokenAuth(username: "$username", password: "$pass")
       {
@@ -27,6 +27,32 @@ class LoginQueries {
         refreshExpiresIn
       }
     }
-    """;
+    ''';
+  }
+
+  String getTokenByFB(String accessToken) {
+    return '''
+      mutation {
+        authUserFacebook (accessToken:"$accessToken") {
+          user {
+            id
+            username
+            firstName
+            lastName
+            picture
+            coverPicture
+            bio
+            gender
+            email
+            birthday
+            phone
+            address
+            isComplete
+          },
+          token,
+          refreshToken
+        }
+      }
+    ''';
   }
 }

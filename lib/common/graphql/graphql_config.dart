@@ -66,13 +66,14 @@ import '../../env.dart';
 
 class GraphQLService {
   GraphQLService(String? token) {
-    var link = HttpLink(
-      headers: <String, String>{
-        'Authorization': 'JWT $token',
-        'Content-Type': 'application/json'
-      },
-      uri: Env.uri,
-    );
+    Link link;
+    token != null
+        ? link = HttpLink(headers: <String, String>{
+            'Authorization': 'JWT $token',
+            'Content-Type': 'application/json'
+          }, uri: Env.uri)
+        : link = HttpLink(uri: Env.uri);
+
     _client = GraphQLClient(link: link, cache: InMemoryCache());
   }
 

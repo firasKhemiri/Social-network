@@ -9,12 +9,12 @@ class SocalIcon extends StatelessWidget {
     required this.press,
   }) : super(key: key);
   final String iconSrc;
-  final Function press;
+  final VoidCallback press;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => press,
+      onTap: press,
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 10),
         padding: const EdgeInsets.all(20),

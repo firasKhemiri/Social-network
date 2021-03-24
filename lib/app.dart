@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_login/common/routes/size.dart';
 import 'package:flutter_login/views/authentication/Welcome/welcome_screen.dart';
 import 'package:flutter_login/repositories/auth/authentication_repository.dart';
-import 'package:flutter_login/repositories/post/feed_repository.dart';
+import 'package:flutter_login/repositories/feed/feed_repository.dart';
 import 'package:flutter_login/repositories/user/user_repository.dart';
 import 'package:flutter_login/views/home/home.dart';
 import 'package:flutter_login/views/splash/splash.dart';
@@ -30,7 +30,7 @@ class App extends StatelessWidget {
           create: (_) => AuthenticationBloc(
             authenticationRepository: authenticationRepository,
             userRepository: userRepository,
-          ),
+          )..add(const AppStarted()),
           child: AppView(),
         ));
   }

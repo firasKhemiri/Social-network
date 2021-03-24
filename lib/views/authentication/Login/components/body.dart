@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_login/blocs/authentication/authentication_bloc.dart';
 import 'package:flutter_login/views/authentication/Login/components/background.dart';
 import 'package:flutter_login/views/authentication/Signup/signup_screen.dart';
 import 'package:flutter_login/views/authentication/components/already_have_an_account_acheck.dart';
@@ -66,7 +67,11 @@ class Body extends StatelessWidget {
                   children: <Widget>[
                     SocalIcon(
                       iconSrc: 'assets/icons/facebook.svg',
-                      press: () {},
+                      press: () => {
+                        context
+                            .read<AuthenticationBloc>()
+                            .add(FacebookAuthenticationRequested())
+                      },
                     ),
                     SocalIcon(
                       iconSrc: 'assets/icons/google-plus.svg',

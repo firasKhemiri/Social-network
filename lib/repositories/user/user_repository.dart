@@ -17,7 +17,11 @@ class UserRepository {
     return await _secureStorage.deleteSecureData('refreshToken');
   }
 
-  Future<void> persistUser(Map<String, String> credentials, User user) async {
+  Future<void> deleteSecureData() async {
+    return await _secureStorage.deleteAll();
+  }
+
+  Future<void> persistUser(Map<String, String?> credentials, User user) async {
     /// write to keystore/keychain
     await _secureStorage.writeSecureDataMap(credentials);
     await _userRepositoryDB.addUser(user);
@@ -38,11 +42,31 @@ class UserRepository {
     return await _secureStorage.readSecureData('refreshToken');
   }
 
-  Future<User?> getUser() async {
-    var _user = await _secureStorage.readAllSecureData().then(
-        (credentials) => credentials['token'] != null ? User.generic : null);
-    return _user;
+  // Future<User?> getUserCredentials() async {
+  //   var _user = await _secureStorage.readAllSecureData().then(
+  //       (credentials) => credentials['token'] != null ? User.generic : null);
+  //   return _user;
+  // }
+
+  Future<User?> getConnectedUser() async {
+    var id = await _secureStorage.readSecureData('id');
+    log('id $id');
+    var user =
+        id.toString() != 'null' ? await getStoredUserById(int.parse(id)) : null;
+    return user;
   }
 
-  void _checkForConnectedUserFB() {}
+  Future<User?> getStoredUserById(int id) async {
+    await _secureStorage.readSecureData('id');
+    return await _userRepositoryDB.getUser(id);
+  }
+
+  User getUserfromData(Map<String, dynamic> data) {
+    var user = User.fromJson(data);
+    log('user: ${user.firstName} ${user.phone}');
+    return user;
+    // return User.generic;
+  }
+
+  // void _checkForConnectedUserFB() {}
 }

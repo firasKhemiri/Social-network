@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_login/blocs/authentication/authentication_bloc.dart';
 import 'package:flutter_login/models/login/bucket.dart';
 import 'package:flutter_login/repositories/auth/authentication_repository.dart';
 import 'package:formz/formz.dart';
@@ -11,11 +12,14 @@ part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc({
+    required AuthenticationBloc authenticationBloc,
     required AuthenticationRepository authenticationRepository,
   })   : _authenticationRepository = authenticationRepository,
+        _authenticationBloc = authenticationBloc,
         super(const LoginState());
 
   final AuthenticationRepository _authenticationRepository;
+  final AuthenticationBloc _authenticationBloc;
 
   @override
   Stream<LoginState> mapEventToState(
@@ -59,10 +63,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     if (state.status.isValidated) {
       yield state.copyWith(status: FormzStatus.submissionInProgress);
       try {
-        await _authenticationRepository.logIn(
+        var user = await _authenticationRepository.logIn(
           username: state.username.value,
           password: state.password.value,
         );
+        _authenticationBloc.add(Authenticated(user: user));
         yield state.copyWith(status: FormzStatus.submissionSuccess);
       } on Exception catch (_) {
         yield state.copyWith(status: FormzStatus.submissionFailure);

@@ -31,10 +31,7 @@ class _MyAppState extends State<MyApp> {
       _checking = false;
     });
     if (accessToken != null) {
-      print('is Logged:::: ${prettyPrint(accessToken.toJson())}');
-      // now you can call to  FacebookAuth.instance.getUserData();
       final userData = await FacebookAuth.instance.getUserData();
-      // final userData = await FacebookAuth.instance.getUserData(fields: "email,birthday,friends,gender,link");
       _accessToken = accessToken;
       setState(() {
         _userData = userData;

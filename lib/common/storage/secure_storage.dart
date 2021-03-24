@@ -7,7 +7,7 @@ class SecureStorage {
     return await _storage.write(key: key, value: value);
   }
 
-  Future writeSecureDataMap(Map<String, String> data) async {
+  Future writeSecureDataMap(Map<String, String?> data) async {
     return data.forEach((key, value) async {
       await _storage.write(key: key, value: value);
     });
@@ -19,6 +19,10 @@ class SecureStorage {
 
   Future deleteSecureData(String key) async {
     return await _storage.delete(key: key);
+  }
+
+  Future deleteAll() async {
+    return await _storage.deleteAll();
   }
 
   Future<Map<String, String>> readAllSecureData() async {

@@ -13,10 +13,10 @@ class SembastUserRepository {
     return _store.add(await _database, user.toJson());
   }
 
-  Future<User?> getUser(User user) async {
+  Future<User?> getUser(int id) async {
     var filter = Filter.custom((snapshot) {
       var value = snapshot['id'];
-      return value == user.id;
+      return value == id;
     });
 
     final finder = Finder(filter: filter);
@@ -25,7 +25,9 @@ class SembastUserRepository {
       await _database,
       finder: finder,
     );
-    return User.fromJson(snapshots.first.value as Map<String, dynamic>);
+    if (snapshots.isNotEmpty)
+      return User.fromJson(snapshots.first.value as Map<String, dynamic>);
+    return null;
   }
 
   Future updateUser(User user) async {

@@ -2,12 +2,13 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_login/blocs/authentication/authentication_bloc.dart';
 import 'package:flutter_login/blocs/feed/bucket.dart';
 import 'package:flutter_login/repositories/auth/authentication_repository.dart';
-import 'package:flutter_login/repositories/post/feed_repository.dart';
+import 'package:flutter_login/repositories/feed/feed_repository.dart';
 import 'package:flutter_login/views/feed/feed_main.dart';
 
-import '../../repositories/post/feed_repository.dart';
+import '../../repositories/feed/feed_repository.dart';
 
 class Feed extends StatelessWidget {
   @override
@@ -18,6 +19,7 @@ class Feed extends StatelessWidget {
             value: FeedRepository,
             child: BlocProvider(
               create: (_) => FeedBloc(
+                  authenticationBloc: context.read<AuthenticationBloc>(),
                   authenticationRepository:
                       context.read<AuthenticationRepository>(),
                   feedRepository: FeedRepository())

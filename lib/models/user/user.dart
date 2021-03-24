@@ -18,6 +18,7 @@ class User {
     this.coverPicture,
     this.followersCount,
     this.followingCount,
+    this.isComplete,
     // this.followers,
     // this.following,
   });
@@ -53,6 +54,7 @@ class User {
   String picture;
   String? coverPicture;
   String? phone;
+  bool? isComplete;
 
   int? followersCount;
   int? followingCount;

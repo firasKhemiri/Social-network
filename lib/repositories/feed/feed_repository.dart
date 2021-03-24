@@ -1,9 +1,7 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter_login/common/graphql/graphql_config.dart';
 import 'package:flutter_login/common/graphql/queries/bucket.dart';
-import 'package:flutter_login/common/storage/secure_storage.dart';
 import 'package:flutter_login/models/feed/bucket.dart';
 import 'package:flutter_login/models/feed/feed.dart';
 import 'package:flutter_login/repositories/user/user_repository.dart';
@@ -16,7 +14,6 @@ class FeedRepository {
   final _userRepository = UserRepository();
 
   Stream<FeedStatus> get status async* {
-    await Future<void>.delayed(const Duration(seconds: 1));
     // yield FeedStatus.notloaded;
     yield* _controller.stream;
   }

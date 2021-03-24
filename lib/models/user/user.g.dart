@@ -23,6 +23,7 @@ User _$UserFromJson(Map json) {
     coverPicture: json['coverPicture'] as String?,
     followersCount: json['followersCount'] as int?,
     followingCount: json['followingCount'] as int?,
+    isComplete: json['isComplete'] as bool?,
   );
 }
 
@@ -38,6 +39,7 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'picture': instance.picture,
       'coverPicture': instance.coverPicture,
       'phone': instance.phone,
+      'isComplete': instance.isComplete,
       'followersCount': instance.followersCount,
       'followingCount': instance.followingCount,
     };

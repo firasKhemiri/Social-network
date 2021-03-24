@@ -15,68 +15,53 @@ class AuthenticationBloc
     required UserRepository userRepository,
   })   : _authenticationRepository = authenticationRepository,
         _userRepository = userRepository,
-        super(AuthenticationInitial()) {
-    _authenticationStatusSubscription = _authenticationRepository.status.listen(
-      (status) => add(AuthenticationStatusChanged(status)),
-    );
-  }
+        super(AuthenticationInitial());
 
   final AuthenticationRepository _authenticationRepository;
   final UserRepository _userRepository;
-  late StreamSubscription<AuthenticationStatus>
-      _authenticationStatusSubscription;
 
   @override
   Stream<AuthenticationState> mapEventToState(
     AuthenticationEvent event,
   ) async* {
-    if (event is AuthenticationStatusChanged) {
-      yield await _mapAuthenticationStatusChangedToState(event);
-    } else if (event is AuthenticationLogoutRequested) {
-      _authenticationRepository.logOut();
+    if (event is AppStarted) {
+      log('app statreted event called');
+      final _user = await _userRepository.getConnectedUser();
+      if (_user != null) {
+        log('user: ${_user.toString()}');
+        yield AuthenticationSuccess(user: _user);
+      } else
+        add(const NotAuthenticated());
     }
+
+    if (event is NotAuthenticated) {
+      yield const AuthenticationFailure(message: 'User is not authenticated');
+    }
+
+    if (event is FacebookAuthenticationRequested) {
+      yield AuthenticationLoading();
+      try {
+        var user = await _authenticationRepository.facebookLogIn();
+        add(Authenticated(user: user));
+      } on Exception catch (_) {
+        log('${_.toString()}');
+        yield const AuthenticationFailure(message: 'An issue has occured');
+      }
+    }
+
+    if (event is Authenticated) {
+      var user = event.user;
+      yield AuthenticationSuccess(user: user);
+    }
+    if (event is AuthenticationLogoutRequested) {
+      _authenticationRepository.logOut();
+      add(const NotAuthenticated());
+    }
+    log('event ${state.toString()}');
   }
 
   @override
   Future<void> close() {
-    _authenticationStatusSubscription.cancel();
-    _authenticationRepository.dispose();
     return super.close();
-  }
-
-  Future<AuthenticationState> _mapAuthenticationStatusChangedToState(
-    AuthenticationStatusChanged event,
-  ) async {
-    log('event status: ${event.status}');
-    switch (event.status) {
-      case AuthenticationStatus.unknown:
-        final _user = await _userRepository.getUser();
-        if (_user != null) {
-          log('user: ${_user.toString()}');
-          return AuthenticationSuccess(user: _user);
-        }
-        return const AuthenticationFailure(message: 'message');
-
-      case AuthenticationStatus.unauthenticated:
-        return const AuthenticationFailure(message: 'message');
-
-      case AuthenticationStatus.authenticated:
-        final user = await _tryGetUser();
-        return user != null
-            ? AuthenticationSuccess(user: user)
-            : const AuthenticationFailure(message: 'message');
-
-      default:
-        return AuthenticationInitial();
-    }
-  }
-
-  Future<User?> _tryGetUser() async {
-    try {
-      final user = await _userRepository.getUser();
-      return user;
-    } on Exception {
-      return null;
-    }
   }
 }
