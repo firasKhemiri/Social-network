@@ -58,10 +58,7 @@
 //   }
 // }
 
-import 'dart:developer';
-
 import 'package:graphql/client.dart';
-
 import '../../env.dart';
 
 class GraphQLService {
@@ -83,8 +80,6 @@ class GraphQLService {
       {Map<String, dynamic>? variables}) async {
     var options = QueryOptions(documentNode: gql(query));
     final result = await _client.query(options);
-
-    // log("$query  ${await _client.query(options).then((value) => value.data.toString())}");
     return result;
   }
 

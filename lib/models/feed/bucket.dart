@@ -1,4 +1,4 @@
 export 'comment.dart';
-export 'reaction.dart';
 export 'post.dart';
+export 'reaction.dart';
 export 'story.dart';

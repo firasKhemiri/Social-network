@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_login/constants.dart';
 
 class TextFieldContainer extends StatelessWidget {
-  final Widget child;
   const TextFieldContainer({
     Key? key,
     required this.child,
   }) : super(key: key);
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
 import 'package:flutter_login/common/storage/secure_storage.dart';
-import 'package:flutter_login/main.dart';
 import 'package:flutter_login/repositories/user/sembast_user_repository.dart';
 
 import '../../models/user/bucket.dart';
@@ -34,11 +33,11 @@ class UserRepository {
     // });
   }
 
-  Future<String> getToken() async {
+  Future<String?> getToken() async {
     return await _secureStorage.readSecureData('token');
   }
 
-  Future<String> getRefreshToken() async {
+  Future<String?> getRefreshToken() async {
     return await _secureStorage.readSecureData('refreshToken');
   }
 
@@ -51,8 +50,9 @@ class UserRepository {
   Future<User?> getConnectedUser() async {
     var id = await _secureStorage.readSecureData('id');
     log('id $id');
-    var user =
-        id.toString() != 'null' ? await getStoredUserById(int.parse(id)) : null;
+    var user = id.toString() != 'null'
+        ? await getStoredUserById(int.parse(id!))
+        : null;
     return user;
   }
 

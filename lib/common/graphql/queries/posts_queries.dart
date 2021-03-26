@@ -1,6 +1,6 @@
 class QueryMutation {
   String getPostsQuery() {
-    return """
+    return '''
     query {
       stories{
           id,
@@ -33,6 +33,6 @@ class QueryMutation {
         commentCount
       }
     }
-    """;
+    ''';
   }
 }

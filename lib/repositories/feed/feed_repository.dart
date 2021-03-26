@@ -49,15 +49,9 @@ class FeedRepository {
   List<Post> _getPostsfromData(List<dynamic> data) {
     var posts = <Post>[];
     try {
-      data.forEach((post) {
-        // log('post data $post');
-        // var codec = const JsonCodec();
-        // var decoded = codec.decode('{"id": 1}');
-        // var json = jsonDecode(post.toString()) as Map<String, dynamic>;
-
-        // log('post data $decoded');
+      for (var post in data) {
         posts.add(Post.fromJson(post as Map<String, dynamic>));
-      });
+      }
       log('post: ${posts[0].id} ${posts[0].user.firstName}');
       return posts;
     } catch (e) {
@@ -68,9 +62,9 @@ class FeedRepository {
 
   List<Story> _getStoriesfromData(List<dynamic> data) {
     var stories = <Story>[];
-    data.forEach((story) {
+    for (var story in data) {
       stories.add(Story.fromJson(story as Map<String, dynamic>));
-    });
+    }
     //   stories.add(Story.fromJson(story as Map<String, dynamic>));
     // });
     // log('story: ${stories[0].id} ${stories[0].user.firstName}');

@@ -103,7 +103,8 @@
 //     if (b == null) return a * (1.0 - t);
 //     return BorderRadius.only(
 //       bottomLeft: Radius.lerp(a.bottomLeft, b.bottomLeft, pow(t, botOffset)),
-//       bottomRight: Radius.lerp(a.bottomRight, b.bottomRight, pow(t, botOffset)),
+//       bottomRight: Radius.lerp(a.bottomRight,
+//       b.bottomRight, pow(t, botOffset)),
 //       topLeft: Radius.lerp(a.topLeft, b.topLeft, pow(t, topOffset)),
 //       topRight: Radius.lerp(a.topRight, b.topRight, pow(t, topOffset)),
 //     );
@@ -161,7 +162,7 @@
 //                                 margin: EdgeInsets.only(bottom: 0),
 //                                 child: ClipRRect(
 //                                     borderRadius: lerp(BorderRadius.zero,
-//                                         BorderRadius.circular(25), percentage,
+//                                        BorderRadius.circular(25), percentage,
 //                                         topOffset: 100),
 //                                     child: Opacity(
 //                                         opacity: percentage,
@@ -169,11 +170,11 @@
 //                                             fit: BoxFit.fitWidth,
 //                                             width: scrollDist <= limit
 //                                                 ? scWidth
-//                                                 : (((scrollDist - maxExtent) *
+//                                                 :(((scrollDist - maxExtent) *
 //                                                             (scWidth -
 //                                                                 (scWidth -
 //                                                                     minImgWidth))) /
-//                                                         (limit - maxExtent)) +
+//                                                        (limit - maxExtent)) +
 //                                                     (scWidth -
 //                                                         minImgWidth)))))),
 //                         CircularProgressIndicator(
@@ -216,16 +217,16 @@
 //                                               width: 30,
 //                                               child: IconButton(
 //                                                 padding:
-//                                                     EdgeInsets.only(right: 10),
+//                                                   EdgeInsets.only(right: 10),
 //                                                 iconSize: 28.0,
 //                                                 icon: Icon(
-//                                                     Icons.chat_bubble_outline),
+//                                                   Icons.chat_bubble_outline),
 //                                                 onPressed: () {},
 //                                               ),
 //                                             ),
 //                                             Container(
 //                                                 width: 20,
-//                                                 child: Text("5", style: bold)),
+//                                               child: Text("5", style: bold)),
 //                                             Spacer(),
 //                                             Spacer(),
 //                                             Spacer(),
@@ -255,7 +256,8 @@
 //     if (b == null) return a * (1.0 - t);
 //     return BorderRadius.only(
 //       bottomLeft: Radius.lerp(a.bottomLeft, b.bottomLeft, pow(t, botOffset)),
-//       bottomRight: Radius.lerp(a.bottomRight, b.bottomRight, pow(t, botOffset)),
+//       bottomRight: Radius.lerp(a.bottomRight,
+//       b.bottomRight, pow(t, botOffset)),
 //       topLeft: Radius.lerp(a.topLeft, b.topLeft, pow(t, topOffset)),
 //       topRight: Radius.lerp(a.topRight, b.topRight, pow(t, topOffset)),
 //     );

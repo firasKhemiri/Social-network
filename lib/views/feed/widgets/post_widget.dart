@@ -1,19 +1,15 @@
 import 'dart:async';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_login/blocs/authentication/authentication_bloc.dart';
-import 'package:flutter_login/common/utils/image.dart';
 import 'package:flutter_login/models/feed/bucket.dart';
 import 'package:flutter_login/models/user/bucket.dart';
+
 import '../../../env.dart';
 import 'bucket.dart';
-// import 'heart_icon_animator.dart';
-// import 'heart_overlay_animator.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'avatar_widget.dart';
-import 'ui_utils.dart';
 
 class PostWidget extends StatefulWidget {
   PostWidget(this.post);
@@ -233,7 +229,7 @@ class _PostWidgetState extends State<PostWidget> {
                   ),
                   if (widget.post.reactions.length > 1) ...[
                     Text(widget.post.reactions[0].user.firstName, style: bold),
-                    Text(' and'),
+                    const Text(' and'),
                     Text(' ${widget.post.reactions.length - 1} others',
                         style: bold),
                   ],

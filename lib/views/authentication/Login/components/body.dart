@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_login/blocs/authentication/authentication_bloc.dart';
-import 'package:flutter_login/views/authentication/Login/components/background.dart';
 import 'package:flutter_login/views/authentication/Signup/signup_screen.dart';
 import 'package:flutter_login/views/authentication/components/already_have_an_account_acheck.dart';
 import 'package:flutter_login/views/authentication/components/bucket.dart';
@@ -23,14 +22,28 @@ class Body extends StatelessWidget {
     return BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
           if (state.status.isSubmissionFailure) {
-            Scaffold.of(context)
+            ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 const SnackBar(content: Text('Authentication Failure')),
               );
           }
         },
-        child: Background(
+        child: Container(
+          height: Size.infinite.height,
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            stops: [
+              0.1,
+              0.8,
+            ],
+            colors: [
+              Color.fromRGBO(196, 135, 198, 1),
+              Color.fromRGBO(162, 56, 254, 1),
+            ],
+          )),
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter_login/models/user/bucket.dart';
 import 'package:flutter_login/repositories/database/init.dart';
 import 'package:sembast/sembast.dart';

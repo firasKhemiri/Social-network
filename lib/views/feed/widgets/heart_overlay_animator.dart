@@ -52,7 +52,7 @@ class _HeartOverlayAnimatorState extends State<HeartOverlayAnimator>
   Widget build(BuildContext context) {
     return ScaleTransition(
       scale: _heartAnimation,
-      child: Icon(Icons.favorite, size: 80.0, color: Colors.white70),
+      child: const Icon(Icons.favorite, size: 80.0, color: Colors.white70),
     );
   }
 }

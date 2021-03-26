@@ -13,7 +13,7 @@ class SecureStorage {
     });
   }
 
-  Future<String> readSecureData(String key) async {
+  Future<String?> readSecureData(String key) async {
     return await _storage.read(key: key);
   }
 
@@ -31,9 +31,9 @@ class SecureStorage {
 
   Future<Map> readSelectedSecureData(List<String> data) async {
     var _map = <String, String>{};
-    data.forEach((key) async {
-      _map[key] = await _storage.read(key: key);
-    });
+    for (var key in data) {
+      _map[key] = (await _storage.read(key: key))!;
+    }
     return _map;
   }
 }

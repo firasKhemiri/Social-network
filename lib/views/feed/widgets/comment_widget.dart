@@ -5,9 +5,8 @@ import 'heart_icon_animator.dart';
 import 'ui_utils.dart';
 
 class CommentWidget extends StatefulWidget {
-  final Comment comment;
-
   CommentWidget(this.comment);
+  final Comment comment;
 
   @override
   _CommentWidgetState createState() => _CommentWidgetState();
@@ -23,7 +22,7 @@ class _CommentWidgetState extends State<CommentWidget> {
     var textSpans = <TextSpan>[
       TextSpan(text: '${widget.comment.user.firstName} ', style: bold),
     ];
-    this.widget.comment.content.split(' ').forEach((word) {
+    widget.comment.content.split(' ').forEach((word) {
       if (word.startsWith('#') && word.length > 1) {
         if (currentTextData.isNotEmpty) {
           textSpans.add(TextSpan(text: currentTextData.toString()));
@@ -52,7 +51,7 @@ class _CommentWidgetState extends State<CommentWidget> {
             width: MediaQuery.of(context).size.width - 52,
             child: _buildRichText(),
           ),
-          Spacer(),
+          const Spacer(),
           Padding(
             padding: const EdgeInsets.only(right: 16.0, top: 2),
             child: HeartIconAnimator(
